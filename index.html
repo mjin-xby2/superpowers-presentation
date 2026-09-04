@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Superpowers: Skills for AI-Driven Development</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --xby2-orange: #F08344;
+      --xby2-charcoal: #3A3A3C;
+      --xby2-gray: #9B9B9B;
+      --xby2-light: #F7F7F7;
+      --r-main-font: 'Inter', 'Helvetica Neue', sans-serif;
+      --r-heading-font: 'Inter', 'Helvetica Neue', sans-serif;
+      --r-main-color: #3A3A3C;
+      --r-heading-color: #3A3A3C;
+      --r-link-color: #F08344;
+      --r-main-font-size: 34px;
+    }
+    .reveal { font-family: var(--r-main-font); }
+    .reveal h1, .reveal h2, .reveal h3 { font-weight: 800; letter-spacing: -0.02em; text-transform: none; }
+    .reveal h2 { font-size: 1.5em; margin-bottom: 0.6em; }
+    .reveal h2 .accent, .reveal h1 .accent { color: var(--xby2-orange); }
+    .reveal .slides section { text-align: left; }
+    .reveal ul { display: block; }
+    .reveal li { margin: 0.35em 0; line-height: 1.35; }
+    .reveal .small { font-size: 0.62em; color: var(--xby2-gray); }
+    .reveal .med { font-size: 0.8em; }
+    .reveal .muted { color: var(--xby2-gray); }
+    .reveal .orange { color: var(--xby2-orange); }
+    .reveal pre { width: 100%; box-shadow: none; border: 1px solid #e3e3e3; border-radius: 8px; font-size: 0.5em; }
+    .reveal pre code { font-family: 'JetBrains Mono', monospace; padding: 18px; max-height: 480px; }
+    .reveal code.inline { font-family: 'JetBrains Mono', monospace; background: var(--xby2-light); padding: 2px 8px; border-radius: 5px; font-size: 0.9em; color: #C05B1F; }
+    .reveal table { font-size: 0.7em; }
+    .reveal table th { color: var(--xby2-orange); }
+
+    /* header logo on every slide */
+    .slide-logo { position: fixed; top: 22px; right: 28px; height: 34px; z-index: 30; }
+
+    /* dot motif (from the X by 2 logo mark) */
+    .dots { display: flex; gap: 10px; margin: 0 0 26px 0; }
+    .dots span { width: 16px; height: 16px; border-radius: 50%; background: var(--xby2-gray); }
+    .dots span:nth-child(3n) { background: var(--xby2-orange); }
+
+    /* cards */
+    .cards { display: flex; gap: 22px; margin-top: 0.4em; }
+    .card { flex: 1; background: var(--xby2-light); border-radius: 12px; padding: 20px 22px; border-top: 4px solid var(--xby2-orange); }
+    .card.gray { border-top-color: var(--xby2-gray); }
+    .card h3 { font-size: 0.7em; margin: 0 0 8px 0; color: var(--xby2-orange); }
+    .card.gray h3 { color: var(--xby2-charcoal); }
+    .card p, .card ul { font-size: 0.58em; margin: 0; line-height: 1.45; }
+    .card ul { padding-left: 1.1em; }
+
+    /* skill map */
+    .skillmap { font-size: 0.52em; line-height: 1.3; }
+    .skillmap .node { display: inline-block; background: #fff; border: 2px solid var(--xby2-gray); border-radius: 8px; padding: 6px 12px; margin: 4px 2px; font-family: 'JetBrains Mono', monospace; }
+    .skillmap .node.hot { border-color: var(--xby2-orange); background: #FDF1E9; font-weight: 600; }
+    .skillmap .arrow { color: var(--xby2-orange); font-weight: 800; margin: 0 4px; }
+    .maprow { margin: 10px 0; }
+
+    /* artifact excerpt placeholder */
+    .artifact { background: #fff; border: 2px dashed var(--xby2-orange); border-radius: 10px; padding: 18px 22px; font-size: 0.5em; font-family: 'JetBrains Mono', monospace; color: var(--xby2-charcoal); line-height: 1.5; }
+    .artifact .label { display: inline-block; background: var(--xby2-orange); color: #fff; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.9em; border-radius: 5px; padding: 2px 10px; margin-bottom: 10px; }
+
+    .tierbox { background: var(--xby2-light); border-left: 6px solid var(--xby2-orange); border-radius: 0 10px 10px 0; padding: 14px 20px; margin: 14px 0; }
+    .tierbox b { color: var(--xby2-orange); }
+    .tierbox p { font-size: 0.7em; margin: 4px 0 0 0; line-height: 1.4; }
+
+    .titleslide { text-align: center !important; }
+    .titleslide img { height: 90px; margin-bottom: 30px; }
+    .footnote { position: absolute; bottom: -80px; font-size: 0.45em; color: var(--xby2-gray); }
+  </style>
+</head>
+<body>
+  <img class="slide-logo" src="assets/logo.jpg" alt="X by 2">
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- 1. Title -->
+      <section class="titleslide">
+        <img src="assets/logo.jpg" alt="X by 2">
+        <h1 style="font-size:1.7em">Superpowers<br><span class="accent">Skills for AI-Driven Development</span></h1>
+        <p class="muted med">Mohammed Hussain &amp; Melodie <span class="muted">[last name]</span> · X by 2 Tech Talk · 2026</p>
+        <aside class="notes">Welcome. Today: a tour of "skills" for AI coding agents, and one skill collection in particular — Superpowers — that we've been using in our own work. ~18 minutes, questions at the end.</aside>
+      </section>
+
+      <!-- 2. The shift -->
+      <section>
+        <div class="dots"><span></span><span></span><span></span><span></span></div>
+        <h2>The bottleneck is <span class="accent">moving</span></h2>
+        <ul>
+          <li>AI agents now write most of the code in agent-assisted projects — generating code is getting <b>cheap</b></li>
+          <li>What's still expensive: <b>deciding what to build</b> and <b>verifying it was built right</b></li>
+          <li class="fragment">The question every team is wrestling with: <span class="orange"><b>how do we structure the work around the agent?</b></span></li>
+        </ul>
+        <aside class="notes">Frame the talk. Not "can AI code" — it can. The interesting problem is process: intent in, verified software out. Everything in this talk is one answer to that question.</aside>
+      </section>
+
+      <!-- 3. SDD teaser -->
+      <section>
+        <div class="dots"><span></span><span></span><span></span><span></span></div>
+        <h2>A perspective we're <span class="accent">forming</span></h2>
+        <p style="font-size:1.05em; line-height:1.5">The industry is converging on a hypothesis: humans focus on <b>specs and verification</b>, agents handle the <b>tedious middle</b>.</p>
+        <p class="muted med">It goes by "spec-driven development." We're still forming our own opinion — this talk is what we've seen so far, not a prescription. We'll come back to this at the end.</p>
+        <aside class="notes">One slide of thesis, deliberately hedged. We are exploring this, not preaching it. Plant the seed, return in the closing.</aside>
+      </section>
+
+      <!-- 4. What is a skill -->
+      <section>
+        <div class="dots"><span></span><span></span><span></span><span></span></div>
+        <h2>What is a <span class="accent">skill</span>?</h2>
+        <p class="med">A folder with a <code class="inline">SKILL.md</code> — instructions an agent loads <b>when relevant</b>.</p>
+        <pre><code class="language-markdown">my-skill/
+├── SKILL.md          # required: metadata + instructions
+├── scripts/          # optional: executable helpers
+└── references/       # optional: docs loaded on demand
+
+--- SKILL.md ---
+---
+name: systematic-debugging
+description: Use when encountering any bug, test failure,
+  or unexpected behavior, before proposing fixes
+---
+## The Process
+1. Reproduce it. 2. Find the root cause. 3. ...</code></pre>
+        <aside class="notes">A skill is not a prompt you paste — it's a packaged procedure. Required frontmatter: name + description. The description is how the agent decides when to pull it in.</aside>
+      </section>
+
+      <!-- 5. Progressive disclosure -->
+      <section>
+        <div class="dots"><span></span><span></span><span></span><span></span></div>
+        <h2>Progressive <span class="accent">disclosure</span></h2>
+        <div class="cards">
+          <div class="card"><h3>1 · Discovery</h3><p>At startup only <b>name + description</b> load — ~100 tokens per skill</p></div>
+          <div class="card"><h3>2 · Activation</h3><p>Task matches the description → agent reads the full <b>SKILL.md</b></p></div>
+          <div class="card"><h3>3 · Execution</h3><p>Scripts and reference files load <b>only if actually needed</b></p></div>
+        </div>
+        <p class="med" style="margin-top:0.9em">Why it matters: you can keep a <b>large library</b> on hand without paying its full cost in context on every task.</p>
+        <aside class="notes">This is the key architectural idea — and it will come back later when we talk about "skill bloat." Well-factored skills are cheap at rest.</aside>
+      </section>
+
+      <!-- 6. Open standard -->
+      <section>
+        <div class="dots"><span></span><span></span><span></span><span></span></div>
+        <h2>An <span class="accent">open standard</span>, quickly</h2>
+        <ul class="med">
+          <li><b>Oct 2025</b> — Anthropic announces Agent Skills for Claude</li>
+          <li><b>Dec 2025</b> — Spun out as a vendor-neutral open standard: <a href="https://agentskills.io">agentskills.io</a></li>
+          <li><b>Within days</b> — OpenAI adds Codex support; now 30+ agents: Claude Code, Codex, GitHub Copilot, VS Code, Cursor, Gemini CLI…</li>
+          <li><b>Distribution</b> — plugin marketplaces (Claude Code), community catalogs, git repos</li>
+        </ul>
+        <p class="small">Skills you write are portable — not locked to one vendor's agent.</p>
+        <aside class="notes">The point of this slide: skills are not a Claude gimmick. It's a small spec — a file format plus a loading model — and it got adopted across the ecosystem in months. Investment in writing skills carries across tools.</aside>
+      </section>
+
+      <!-- 7. Enter Superpowers -->
+      <section>
+        <div class="dots"><span></span><span></span><span></span><span></span></div>
+        <h2>Enter <span class="accent">Superpowers</span></h2>
+        <ul class="med">
+          <li>A plugin of <b>14 skills</b> covering the full SDLC — brainstorm → plan → implement → verify → review → merge</li>
+          <li>By <b>Jesse Vincent</b> (obra), launched Oct 2025; on Anthropic's official plugin marketplace; 280k+ GitHub stars</li>
+          <li>Philosophy: <b>spec-first</b>, test-driven, YAGNI, <i>evidence over claims</i></li>
+          <li>The agent doesn't jump to code — it teases out a spec, gets your sign-off, then plans and implements</li>
+        </ul>
+        <aside class="notes">Superpowers = an opinionated methodology packaged as skills. It makes the agent behave like a disciplined engineer following a process — the author's framing. Now supports many harnesses beyond Claude Code (Codex, Cursor, Copilot CLI, etc.).</aside>
+      </section>
+
+      <!-- 8. Skill map -->
+      <section>
+        <div class="dots"><span></span><span></span><span></span><span></span></div>
+        <h2>The skill <span class="accent">map</span></h2>
+        <div class="skillmap">
+          <div class="maprow"><span class="node">using-superpowers</span><span class="arrow">→</span><span class="node hot">brainstorming</span><span class="arrow">→</span><span class="node">using-git-worktrees</span><span class="arrow">→</span><span class="node hot">writing-plans</span></div>
+          <div class="maprow" style="padding-left:60px"><span class="arrow">↓</span> <span class="node hot">subagent-driven-development</span> <span class="muted">or</span> <span class="node">executing-plans</span> <span class="arrow">→</span> <span class="node">finishing-a-development-branch</span></div>
+          <div class="maprow"><span class="muted">during implementation:</span> <span class="node">test-driven-development</span> <span class="node">systematic-debugging</span> <span class="node">verification-before-completion</span></div>
+          <div class="maprow"><span class="muted">between tasks:</span> <span class="node">requesting-code-review</span> <span class="arrow">→</span> <span class="node">receiving-code-review</span> <span class="muted">· plus:</span> <span class="node">dispatching-parallel-agents</span> <span class="node">writing-skills</span></div>
+        </div>
+        <p class="small" style="margin-top:0.8em">Skills hand off to each other — you're expected to use them <b>in sequence</b>, not ad-hoc.</p>
+        <aside class="notes">Anchor visual. Walk the main line left to right: entry point auto-triggers brainstorming before any creative work; worktree isolates; plans break work into 2–5 minute tasks; then execution either via subagents or in batches with human checkpoints. Cross-cutting skills fire on bugs, before "done" claims, and at review time.</aside>
+      </section>
+
+      <!-- 9. Brainstorming -->
+      <section>
+        <div class="dots"><span></span><span></span><span></span><span></span></div>
+        <h2>Brainstorming: <span class="accent">ceremony scales to the task</span></h2>
+        <div class="cards">
+          <div class="card gray"><h3>Spike</h3><p>"Can we…?" A feasibility question. Probe cheaply, report a recommendation. <b>No documents.</b></p></div>
+          <div class="card gray"><h3>Bounded</h3><p>Well-scoped change to an <b>existing</b> flow. Short design in chat, approval, go. <b>No plan doc.</b></p></div>
+          <div class="card"><h3>Architectural</h3><p>New projects / subsystems. Questions → approaches → written spec → implementation plan.</p></div>
+        </div>
+        <p class="med" style="margin-top:0.9em">Every path stops for <b>your approval</b> before implementation — the ceremony scales, the gate doesn't.</p>
+        <aside class="notes">This classification arrived in v6.3.0 — earlier versions ran the full ritual for everything. The skill even lists "I'll call it bounded to skip the spec" as a red-flag rationalization. This talk's deck was itself built through this flow — meta-example if time allows.</aside>
+      </section>
+
+      <!-- 10. Visual companion -->
+      <section>
+        <div class="dots"><span></span><span></span><span></span><span></span></div>
+        <h2>The visual <span class="accent">companion</span></h2>
+        <ul class="med">
+          <li>Optional local web UI the agent opens <b>alongside</b> the terminal during brainstorming</li>
+          <li>Shows <b>mockups, diagrams, side-by-side options</b> — instead of describing UI in prose</li>
+          <li>Offered just-in-time, only when a question is genuinely visual</li>
+          <li class="muted">Caveat: can be token-intensive — worth it for UI-heavy work, skippable otherwise</li>
+        </ul>
+        <aside class="notes">Demo screenshot could go here if we capture one. The value: choosing between three wireframes beats reading three paragraphs describing them. The cost: rendering those artifacts burns tokens.</aside>
+      </section>
+
+      <!-- 11. Spec artifact -->
+      <section>
+        <div class="dots"><span></span><span></span><span></span><span></span></div>
+        <h2>From brainstorm to <span class="accent">spec</span></h2>
+        <div class="artifact">
+          <span class="label">ARTIFACT — design spec (excerpt from our project)</span>
+          <p>[ PLACEHOLDER — paste excerpt from a real docs/superpowers/specs/*-design.md:<br>
+          goal, a couple of requirement bullets, one architecture decision ]</p>
+        </div>
+        <p class="small">Written by the agent from the brainstorming dialogue; reviewed and approved by us before any code.</p>
+        <aside class="notes">Speak to what the real spec captured and what the approval conversation changed. Emphasize: the spec is the durable artifact — the thing worth version-controlling.</aside>
+      </section>
+
+      <!-- 12. Plan artifact / subagents -->
+      <section>
+        <div class="dots"><span></span><span></span><span></span><span></span></div>
+        <h2>Plans → <span class="accent">subagent-driven development</span></h2>
+        <div class="artifact">
+          <span class="label">ARTIFACT — implementation plan (excerpt)</span>
+          <p>[ PLACEHOLDER — paste 2–3 tasks from a real plan: exact file paths,
+          2–5 minute granularity, verification steps ]</p>
+        </div>
+        <ul class="med" style="margin-top:0.6em">
+          <li>A fresh subagent per task; two-stage review (spec compliance, then code quality)</li>
+          <li>Main session stays clean — implementation noise lives in the subagents</li>
+        </ul>
+        <aside class="notes">The plan is written so a fresh agent with zero context can execute a task. That's the discipline: if a subagent can't do it from the plan alone, the plan was underspecified. Note: this mode needs prompting/capable models — more in risks.</aside>
+      </section>
+
+      <!-- 13. Verification artifact -->
+      <section>
+        <div class="dots"><span></span><span></span><span></span><span></span></div>
+        <h2>Verification: <span class="accent">evidence over claims</span></h2>
+        <div class="artifact">
+          <span class="label">ARTIFACT — test report / verification output (excerpt)</span>
+          <p>[ PLACEHOLDER — paste real test-run output or a verification summary
+          the agent produced before claiming "done" ]</p>
+        </div>
+        <ul class="med" style="margin-top:0.6em">
+          <li><code class="inline">test-driven-development</code> — failing test first, always</li>
+          <li><code class="inline">verification-before-completion</code> — no "it works" without command output to prove it</li>
+        </ul>
+        <aside class="notes">This is our favorite category of skill — it attacks the classic failure where the agent confidently declares success on broken code. Systematic-debugging similarly forces root-cause before fixes.</aside>
+      </section>
+
+      <!-- 14. What we liked -->
+      <section>
+        <div class="dots"><span></span><span></span><span></span><span></span></div>
+        <h2>What we <span class="accent">liked</span></h2>
+        <ul>
+          <li><b>Structure</b> — spike / bounded / architectural means the right amount of process per problem</li>
+          <li><b>Approval gates</b> — the agent stops and asks before building; fewer confident wrong turns</li>
+          <li><b>Visual companion</b> — seeing options beats reading descriptions of them</li>
+          <li><b>Subagent leverage</b> — a strong model plans; cheaper agents research, implement, verify in parallel</li>
+        </ul>
+        <aside class="notes">Ground each in a project anecdote. The overall effect: fewer restarts, better artifacts left behind (specs, plans, reports we could show colleagues — like today).</aside>
+      </section>
+
+      <!-- 15. Watch out for -->
+      <section>
+        <div class="dots"><span></span><span></span><span></span><span></span></div>
+        <h2>What to <span class="accent">watch out for</span></h2>
+        <ul>
+          <li><b>Model choice matters</b> — know which model and effort level fits each stage; small models are fine for research, poor for development</li>
+          <li><b>Token cost</b> — thorough process = more input/output; the visual companion especially</li>
+          <li><b>Subagent ergonomics</b> — sometimes in-context work beats dispatching; knowing when is a judgment call the framework won't make for you</li>
+        </ul>
+        <aside class="notes">Honest section. Our own rule of thumb: don't hand development tasks to the smallest models. And subagent-driven dev can feel clunky — handoffs fail in ways that in-context work doesn't.</aside>
+      </section>
+
+      <!-- 16. Skill bloat -->
+      <section>
+        <div class="dots"><span></span><span></span><span></span><span></span></div>
+        <h2>The <span class="accent">"skill bloat"</span> question</h2>
+        <div class="cards">
+          <div class="card gray"><h3>The critique</h3><ul><li>Instructions + tools eat context before work starts; tool-selection accuracy drops as options grow</li><li>"Models plan competently unprompted — why pay tokens for harness?"</li></ul></div>
+          <div class="card"><h3>The counters</h3><ul><li>Progressive disclosure: a big library is cheap <b>if well-factored</b></li><li>Consistency across a team is worth tokens</li><li>Alternative: grow small, project-specific skills from observed failures</li></ul></div>
+        </div>
+        <p class="small" style="margin-top:0.7em">Notably: critics rarely dispute the <i>workflow</i> — TDD, plan-first, review — they dispute paying for it on every task.</p>
+        <aside class="notes">This is the most interesting debate. Minimalists (Ronacher, Hashimoto's "harness engineering") add one instruction only after a real observed failure. Anthropic's own guidance is closer to that than you'd expect: start from evaluated gaps, keep SKILL.md lean. Both sides agree on the practices — they differ on packaging.</aside>
+      </section>
+
+      <!-- 17. Tiered recommendation -->
+      <section>
+        <div class="dots"><span></span><span></span><span></span><span></span></div>
+        <h2>Our take, <span class="accent">by where you are</span></h2>
+        <div class="tierbox"><b>New / newish to AI-assisted dev</b><p>Try <b>brainstorming with Superpowers</b> — it teaches a good default process while you use it.</p></div>
+        <div class="tierbox"><b>Experienced</b><p>Try a <b>spec-driven skill set</b>. Superpowers is a good one; GitHub Spec Kit, Amazon Kiro, and BMAD are also out there.</p></div>
+        <div class="tierbox"><b>Advanced, with your own skill system</b><p>Skip adopting it wholesale — but it's <b>worth a review</b> for ideas to add to your toolbelt.</p></div>
+        <aside class="notes">The recommendation is deliberately tiered — this is not "everyone must adopt Superpowers." Name the alternatives so people know the category is bigger than one plugin.</aside>
+      </section>
+
+      <!-- 18. Where this is heading -->
+      <section>
+        <div class="dots"><span></span><span></span><span></span><span></span></div>
+        <h2>Where we think this is <span class="accent">heading</span></h2>
+        <p style="font-size:1.0em; line-height:1.55">We believe development is gravitating toward humans spending their time on <b>technical specs and code artifacts</b> — the intent and the verification — while pushing the tedious middle to AI.</p>
+        <p class="med muted">Skill sets like Superpowers are early attempts at identifying and standardizing <i>how</i>. We're still forming our mental model — treat this as a perspective from our work, not a prescription.</p>
+        <aside class="notes">Callback to slide 3. Sean Grove's "The New Code" framing is the intellectual anchor for the industry version of this idea; skeptics call it rebranded waterfall. We're watching, experimenting, and reporting — which is exactly what this talk is.</aside>
+      </section>
+
+      <!-- 19. Try it -->
+      <section class="titleslide">
+        <div class="dots" style="justify-content:center"><span></span><span></span><span></span><span></span></div>
+        <h2 style="text-align:center">Try it — and <span class="accent">tell us what you find</span></h2>
+        <ul class="med" style="display:inline-block; text-align:left">
+          <li><code class="inline">/plugin install superpowers@claude-plugins-official</code></li>
+          <li>The standard: <a href="https://agentskills.io">agentskills.io</a> · The repo: <a href="https://github.com/obra/superpowers">github.com/obra/superpowers</a></li>
+          <li>Our own library: <b>xby2-skills</b> — contribute the skills your project needs</li>
+        </ul>
+        <p class="small" style="text-align:center">This deck (and its research wiki) was built with Claude Code + Superpowers brainstorming.</p>
+        <aside class="notes">Close with the local call to action: the durable win for X by 2 isn't any one plugin — it's building our own shared, project-scoped skills. Q&A.</aside>
+      </section>
+
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      slideNumber: 'c/t',
+      transition: 'fade',
+      width: 1280,
+      height: 760,
+      margin: 0.06,
+      plugins: [ RevealHighlight, RevealNotes ]
+    });
+  </script>
+</body>
+</html>
