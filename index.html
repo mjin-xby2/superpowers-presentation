@@ -56,12 +56,19 @@
     .card p, .card ul { font-size: 0.58em; margin: 0; line-height: 1.45; }
     .card ul { padding-left: 1.1em; }
 
-    /* skill map */
-    .skillmap { font-size: 0.52em; line-height: 1.3; }
-    .skillmap .node { display: inline-block; background: #fff; border: 2px solid var(--xby2-gray); border-radius: 8px; padding: 6px 12px; margin: 4px 2px; font-family: 'JetBrains Mono', monospace; }
+    /* skill map (vertical flow) */
+    .skillmap { font-size: 0.5em; line-height: 1.3; display: flex; gap: 34px; align-items: flex-start; }
+    .skillmap .node { display: inline-block; background: #fff; border: 2px solid var(--xby2-gray); border-radius: 8px; padding: 6px 14px; font-family: 'JetBrains Mono', monospace; text-align: center; }
     .skillmap .node.hot { border-color: var(--xby2-orange); background: #FDF1E9; font-weight: 600; }
     .skillmap .arrow { color: var(--xby2-orange); font-weight: 800; margin: 0 4px; }
-    .maprow { margin: 10px 0; }
+    .skillmap .flow { display: flex; flex-direction: column; align-items: center; flex: 0 0 auto; }
+    .skillmap .varrow { color: var(--xby2-orange); font-weight: 800; font-size: 1.3em; line-height: 1; margin: 2px 0; }
+    .skillmap .branch { display: flex; align-items: center; gap: 10px; }
+    .skillmap .crosscut { flex: 1; display: flex; flex-direction: column; gap: 16px; padding-top: 4px; }
+    .skillmap .ccgroup { background: var(--xby2-light); border-radius: 10px; padding: 12px 16px; }
+    .skillmap .ccgroup h4 { margin: 0 0 8px 0; font-size: 1em; color: var(--xby2-charcoal); font-family: 'Inter', sans-serif; font-weight: 700; }
+    .skillmap .ccgroup .node { margin: 3px 4px 3px 0; }
+    .skillmap .ccrow { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; }
 
     /* artifact excerpt placeholder */
     .artifact { background: #fff; border: 2px dashed var(--xby2-orange); border-radius: 10px; padding: 18px 22px; font-size: 0.5em; font-family: 'JetBrains Mono', monospace; color: var(--xby2-charcoal); line-height: 1.5; }
@@ -85,7 +92,7 @@
       <section class="titleslide">
         <img src="assets/logo.jpg" alt="X by 2">
         <h1 style="font-size:1.7em">Superpowers<br><span class="accent">Skills for AI-Driven Development</span></h1>
-        <p class="muted med">Mohammed Hussain &amp; Melodie <span class="muted">[last name]</span> · X by 2 Tech Talk · 2026</p>
+        <p class="muted med">Mohammed Hussain &amp; Melodie Jin · X by 2 Tech Talk · 2026</p>
         <aside class="notes">Welcome. Today: a tour of "skills" for AI coding agents, and one skill collection in particular — Superpowers — that we've been using in our own work. ~18 minutes, questions at the end.</aside>
       </section>
 
@@ -110,11 +117,19 @@
         <aside class="notes">One slide of thesis, deliberately hedged. We are exploring this, not preaching it. Plant the seed, return in the closing.</aside>
       </section>
 
-      <!-- 4. What is a skill -->
+      <!-- 4. What is a skill - concept -->
       <section>
         <div class="dots"><span></span><span></span><span></span><span></span></div>
         <h2>What is a <span class="accent">skill</span>?</h2>
-        <p class="med">A folder with a <code class="inline">SKILL.md</code> — instructions an agent loads <b>when relevant</b>.</p>
+        <p style="font-size:1.05em; line-height:1.5">A folder of instructions that an agent <b>pulls in on its own</b> when a task looks relevant — not pasted in by you, not always loaded.</p>
+        <p class="med">Not a <b>command</b> (you invoke those explicitly) and not an <b>MCP server</b> (that's a tool the agent calls) — a skill is judgment about <i>when</i> to bring in a procedure, packaged with the procedure itself.</p>
+        <aside class="notes">Concept slide only, no code yet. The commands/MCP contrast matters for this audience — they've likely heard those terms and will otherwise conflate them with skills.</aside>
+      </section>
+
+      <!-- 5. What is a skill - how it works -->
+      <section>
+        <div class="dots"><span></span><span></span><span></span><span></span></div>
+        <h2>How it <span class="accent">works</span></h2>
         <pre><code class="language-markdown">my-skill/
 ├── SKILL.md          # required: metadata + instructions
 ├── scripts/          # optional: executable helpers
@@ -128,20 +143,13 @@ description: Use when encountering any bug, test failure,
 ---
 ## The Process
 1. Reproduce it. 2. Find the root cause. 3. ...</code></pre>
-        <aside class="notes">A skill is not a prompt you paste — it's a packaged procedure. Required frontmatter: name + description. The description is how the agent decides when to pull it in.</aside>
-      </section>
-
-      <!-- 5. Progressive disclosure -->
-      <section>
-        <div class="dots"><span></span><span></span><span></span><span></span></div>
-        <h2>Progressive <span class="accent">disclosure</span></h2>
-        <div class="cards">
+        <div class="cards" style="margin-top:0.7em">
           <div class="card"><h3>1 · Discovery</h3><p>At startup only <b>name + description</b> load — ~100 tokens per skill</p></div>
           <div class="card"><h3>2 · Activation</h3><p>Task matches the description → agent reads the full <b>SKILL.md</b></p></div>
           <div class="card"><h3>3 · Execution</h3><p>Scripts and reference files load <b>only if actually needed</b></p></div>
         </div>
-        <p class="med" style="margin-top:0.9em">Why it matters: you can keep a <b>large library</b> on hand without paying its full cost in context on every task.</p>
-        <aside class="notes">This is the key architectural idea — and it will come back later when we talk about "skill bloat." Well-factored skills are cheap at rest.</aside>
+        <p class="small" style="margin-top:0.6em">This staged loading — "progressive disclosure" — is why a <b>large library</b> doesn't have to cost much context on every task.</p>
+        <aside class="notes">Required frontmatter: name + description. The description is how the agent decides when to pull a skill in. Progressive disclosure is the key architectural idea — it comes back later when we talk about "skill bloat." Well-factored skills are cheap at rest.</aside>
       </section>
 
       <!-- 6. Open standard -->
@@ -176,12 +184,35 @@ description: Use when encountering any bug, test failure,
         <div class="dots"><span></span><span></span><span></span><span></span></div>
         <h2>The skill <span class="accent">map</span></h2>
         <div class="skillmap">
-          <div class="maprow"><span class="node">using-superpowers</span><span class="arrow">→</span><span class="node hot">brainstorming</span><span class="arrow">→</span><span class="node">using-git-worktrees</span><span class="arrow">→</span><span class="node hot">writing-plans</span></div>
-          <div class="maprow" style="padding-left:60px"><span class="arrow">↓</span> <span class="node hot">subagent-driven-development</span> <span class="muted">or</span> <span class="node">executing-plans</span> <span class="arrow">→</span> <span class="node">finishing-a-development-branch</span></div>
-          <div class="maprow"><span class="muted">during implementation:</span> <span class="node">test-driven-development</span> <span class="node">systematic-debugging</span> <span class="node">verification-before-completion</span></div>
-          <div class="maprow"><span class="muted">between tasks:</span> <span class="node">requesting-code-review</span> <span class="arrow">→</span> <span class="node">receiving-code-review</span> <span class="muted">· plus:</span> <span class="node">dispatching-parallel-agents</span> <span class="node">writing-skills</span></div>
+          <div class="flow">
+            <span class="node">using-superpowers</span>
+            <span class="varrow">↓</span>
+            <span class="node hot">brainstorming</span>
+            <span class="varrow">↓</span>
+            <span class="node">using-git-worktrees</span>
+            <span class="varrow">↓</span>
+            <span class="node hot">writing-plans</span>
+            <span class="varrow">↓</span>
+            <span class="branch"><span class="node hot">subagent-driven-development</span><span class="muted">or</span><span class="node">executing-plans</span></span>
+            <span class="varrow">↓</span>
+            <span class="node">finishing-a-development-branch</span>
+          </div>
+          <div class="crosscut">
+            <div class="ccgroup">
+              <h4>during implementation</h4>
+              <div class="ccrow"><span class="node">test-driven-development</span><span class="node">systematic-debugging</span><span class="node">verification-before-completion</span></div>
+            </div>
+            <div class="ccgroup">
+              <h4>between tasks</h4>
+              <div class="ccrow"><span class="node">requesting-code-review</span><span class="arrow">→</span><span class="node">receiving-code-review</span></div>
+            </div>
+            <div class="ccgroup">
+              <h4>also available</h4>
+              <div class="ccrow"><span class="node">dispatching-parallel-agents</span><span class="node">writing-skills</span></div>
+            </div>
+          </div>
         </div>
-        <p class="small" style="margin-top:0.8em">Skills hand off to each other — you're expected to use them <b>in sequence</b>, not ad-hoc.</p>
+        <p class="small" style="margin-top:0.8em">Some skills hand off to each other in sequence, not ad-hoc — e.g. <code class="inline">subagent-driven-development</code> dispatches a <b>subagent</b>: a fresh, isolated agent instance sent to do one task and report back.</p>
         <aside class="notes">Anchor visual. Walk the main line left to right: entry point auto-triggers brainstorming before any creative work; worktree isolates; plans break work into 2–5 minute tasks; then execution either via subagents or in batches with human checkpoints. Cross-cutting skills fire on bugs, before "done" claims, and at review time.</aside>
       </section>
 
